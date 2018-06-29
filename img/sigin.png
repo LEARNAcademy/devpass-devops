@@ -1,0 +1,39 @@
+Warning: wildcards not supported in HTTP.
+--2018-06-28 21:23:01--  https://cl.ly/1J05370Z3J3Q/download/%5C[c0e27d3cfc1422d702fd72034e828211%5C]_Image%202018-06-28%20at%2021.21.16.png
+Resolving cl.ly... 34.235.248.49, 54.172.94.151
+Connecting to cl.ly|34.235.248.49|:443... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://api.cld.me/1J05370Z3J3Q/download/%5C[c0e27d3cfc1422d702fd72034e828211%5C]_Image%202018-06-28%20at%2021.21.16.png [following]
+Warning: wildcards not supported in HTTP.
+--2018-06-28 21:23:01--  https://api.cld.me/1J05370Z3J3Q/download/%5C[c0e27d3cfc1422d702fd72034e828211%5C]_Image%202018-06-28%20at%2021.21.16.png
+Resolving api.cld.me... 34.238.25.145, 54.80.16.189
+Connecting to api.cld.me|34.238.25.145|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://s3.amazonaws.com/f.cl.ly/items/1O4122443C3x1a3P1G3v/%5Bc0e27d3cfc1422d702fd72034e828211%5D_Image%202018-06-28%20at%2021.21.16.png?AWSAccessKeyId=AKIAJEFUZRCWSLB2QA5Q&Expires=1530249782&Signature=zayM9u7YBYXDfOXNwnX5fHYmHyY%3D&response-content-disposition=attachment [following]
+--2018-06-28 21:23:02--  https://s3.amazonaws.com/f.cl.ly/items/1O4122443C3x1a3P1G3v/%5Bc0e27d3cfc1422d702fd72034e828211%5D_Image%202018-06-28%20at%2021.21.16.png?AWSAccessKeyId=AKIAJEFUZRCWSLB2QA5Q&Expires=1530249782&Signature=zayM9u7YBYXDfOXNwnX5fHYmHyY%3D&response-content-disposition=attachment
+Resolving s3.amazonaws.com... 52.216.164.253
+Connecting to s3.amazonaws.com|52.216.164.253|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 834854 (815K) [image/png]
+Saving to: ‘\\[c0e27d3cfc1422d702fd72034e828211\\]_Image 2018-06-28 at 21.21.16.png’
+
+     0K .......... .......... .......... .......... ..........  6%  217K 4s
+    50K .......... .......... .......... .......... .......... 12%  338K 3s
+   100K .......... .......... .......... .......... .......... 18%  634K 2s
+   150K .......... .......... .......... .......... .......... 24%  323K 2s
+   200K .......... .......... .......... .......... .......... 30%  586K 2s
+   250K .......... .......... .......... .......... .......... 36%  650K 1s
+   300K .......... .......... .......... .......... .......... 42%  649K 1s
+   350K .......... .......... .......... .......... .......... 49%  361K 1s
+   400K .......... .......... .......... .......... .......... 55% 3.04M 1s
+   450K .......... .......... .......... .......... .......... 61%  679K 1s
+   500K .......... .......... .......... .......... .......... 67%  655K 1s
+   550K .......... .......... .......... .......... .......... 73%  868K 0s
+   600K .......... .......... .......... .......... .......... 79% 2.42M 0s
+   650K .......... .......... .......... .......... .......... 85%  721K 0s
+   700K .......... .......... .......... .......... .......... 91% 5.10M 0s
+   750K .......... .......... .......... .......... .......... 98%  813K 0s
+   800K .......... .....                                      100%  159M=1.4s
+
+2018-06-28 21:23:04 (593 KB/s) - ‘\\[c0e27d3cfc1422d702fd72034e828211\\]_Image 2018-06-28 at 21.21.16.png’ saved [834854/834854]
+

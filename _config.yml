@@ -5,9 +5,9 @@ description: >
   Challenges of DevPass DevOps Curriculum 
 
 baseurl: "/devpass-devops" # the subpath of your site, e.g. /blog/
-url: https://aksakalli.github.io/jekyll-doc-theme # the base hostname & protocol for your site
-git_address: https://github.com/aksakalli/jekyll-doc-theme
-git_edit_address: https://github.com/aksakalli/jekyll-doc-theme/blob/gh-pages
+url: https://learnacademy.github.io/devpass-devops # the base hostname & protocol for your site
+git_address: https://github.com/learnacademy/devpass-devops
+git_edit_address: https://github.com/learnacademy/devpass-devops/blob/gh-pages
 
 # theme options from https://bootswatch.com/
 # comment out this to use default Bootstrap

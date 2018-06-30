@@ -1,13 +1,13 @@
 ---
 title: Challenge Two
-permalink: /challenge2
+permalink: /docs/challenge2/
 ---
 
 ## Serving a static site
 
 ### Recreate a the nginx server from Challenge 1
 
-[Challenge One](./challenge1)
+[Challenge One]({{site.baseurl}}/docs/challenge1)
 
 
 Never by afraid to go back an review lessons or use the tutorial as a cheat sheet. 
@@ -56,7 +56,7 @@ PORT=4000 nodejs index.js
 
 Open http://IP OF YOU INSTANCE:4000 and see if the site loads
 
-![See The app](img/seeapp.png)
+![See The app]({{site.baseurl}}/img/seeapp.png)
 
 ### Add the Proxy Configuration
 
@@ -97,7 +97,9 @@ Do not forget to shut down your ec2 instance (terminate it!) once you are done f
 
 ### Find the Instance in the Web Console
 
-### Right Click and Select Terminate
+![Find Instance]({{site.baseurl}}/img/findinstance.png)
 
+### Right Click and Select "Instance State" > "Terminate"
+
+![Termiante]({{site.baseurl}}/img/terminate.png)
 Do not forget to confirm the warning dialog
- 

@@ -1,10 +1,9 @@
-- title: Getting Started
+- title: Challenges
   docs:
-  - home
-  - themes
-  - customization
+  - challenge1
+  - challenge2
 
-- title: Examples
+- title: Resources
   docs:
   - cheatsheet
   - font-awesome

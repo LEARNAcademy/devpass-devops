@@ -9,7 +9,7 @@ Get a server started with ssh access, copy (no copy and paste) a hello world fil
 
 # Steps To Complete
 
-<video src="https://d3vv6lp55qjaqc.cloudfront.net/items/3K1x410a1q3M2E2G0R1I/Screen%20Recording%202018-06-01%20at%2014.46.mov" controls style="display: block;height: auto;width: 100%;">Screen Recording 2018-06-01 at 14.46.mov</video>
+<video src="https://d3vv6lp55qjaqc.cloudfront.net/items/3s1s3t3D1R202E2I1G2y/Screen%20Recording%202018-07-09%20at%2017.54.mov" controls style="display: block;height: auto;width: 100%;">Screen Recording 2018-07-09 at 17.54.mov</video>
 
 ## Launch an Instance 
 
@@ -123,7 +123,7 @@ You can copy files from one machine to another over ssh, using a tool called **s
 
 ### Upload the index.html File via SCP
 
-`scp -i ~/.ssh/devpass_rsa index.html YOUR IP:./index.html`
+`scp -i ~/.ssh/devpass_rsa index.html ubuntu@IP_ADDRESS:./index.html`
 
 ### Move File To Correct Config Location
 

@@ -91,6 +91,14 @@ sudo /etc/init.d/nginx restart
 
 Open http://IP OF YOUR INSTANCE/cats and see if your app shows up.  Does / still show your static site version?
 
+### Install a Rails application
+
+### Install a Laravel app
+
+### Install a Django app
+
+### Init scripts
+
 ## Clean Up
 
 Do not forget to shut down your ec2 instance (terminate it!) once you are done for the night. The instance is charge by the minute, so leaving it running when you do not want to is just as bad as leaving the kitchen faucit on. You are pouring money down the drain.

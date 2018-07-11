@@ -93,11 +93,31 @@ Open http://IP OF YOUR INSTANCE/cats and see if your app shows up.  Does / still
 
 ### Install a Rails application
 
+Follow the same procedure to get this Rails application running on port 3000. 
+
+
+Install RVM using these [instructions](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rvm-on-ubuntu-16-04)
+
+```bash
+apt install libpq-dev  # need this for the bundle
+rvm install 2.4.1
+git clone https://github.com/RailsApps/learn-rails.git
+cd learn-rails
+bundle
+rails s -b 0.0.0.0
+```
+
 ### Install a Laravel app
 
-### Install a Django app
+Before you start
 
-### Init scripts
+```bash
+apt install composer php7.0-mbstring php7.0-dom zip unzip mysql php7.0-mysql
+```
+
+Before running the migration - change "127.0.0.1" to "localhost" in the .env file
+
+Otherwise follow the instructions [here](https://github.com/laravel/quickstart-basic)
 
 ## Clean Up
 

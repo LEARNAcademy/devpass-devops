@@ -1,5 +1,5 @@
 ---
-title: Challenge 3 
+title: Challenge Three 
 permalink: /docs/challenge3/
 ---
 

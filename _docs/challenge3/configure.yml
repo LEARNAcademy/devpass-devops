@@ -1,0 +1,99 @@
+- hosts: tag_type_nginx 
+  gather_facts: no
+  pre_tasks:
+    - name: 'install python2'
+      raw: sudo apt-get -y install python-simplejson
+
+- name: Configure instance(s)
+  hosts: tag_type_nginx
+  become: True
+  gather_facts: True
+  tasks:
+    # - name: update apt cache
+    #   become: yes
+    #   package: update_cache=yes
+    
+    # - name: install aptitude
+    #   # on Debian Jessie aptitude is not installed by default, without it apt-get upgrade fails
+    #   become: yes
+    #   package: name=aptitude state=installed
+    
+    # - name: upgrade apt packages
+    #   become: yes
+    #   package: upgrade=full
+    
+    - name: install dev tools and libraries
+      become: yes
+      package: name={{ item }} state=installed
+      with_items:
+        - build-essential
+        - git
+        - curl
+        - openssl
+        - libreadline6
+        - libreadline6-dev
+        - zlib1g
+        - zlib1g-dev
+        - libssl-dev
+        - nginx
+
+- name: Server A
+  hosts: tag_type_nginx[0]
+  become: True
+  gather_facts: True
+  tasks:
+    - name: copy config
+      copy: src=./files/server_a.conf dest=/etc/nginx/sites-available/default owner=root group=root
+      become: yes
+    - name: restart nginx
+      become: yes
+      service: name=nginx enabled=yes state=restarted
+
+- name: Server B
+  hosts: tag_type_nginx[1]
+  become: True
+  gather_facts: True
+  tasks:
+    - name: copy config
+      copy: src=./files/server_b.conf dest=/etc/nginx/sites-available/default owner=root group=root
+      become: yes
+    - name: restart nginx
+      become: yes
+      service: name=nginx enabled=yes state=restarted
+
+- name: Server C
+  hosts: tag_type_nginx[2]
+  become: True
+  gather_facts: True
+  tasks:
+    - name: copy config
+      copy: src=./files/server_c.conf dest=/etc/nginx/sites-available/default owner=root group=root
+      become: yes
+    - name: restart nginx
+      become: yes
+      service: name=nginx enabled=yes state=restarted
+
+- name: Server D
+  hosts: tag_type_nginx[3]
+  become: True
+  gather_facts: True
+  tasks:
+    - name: copy config
+      copy: src=./files/server_d.conf dest=/etc/nginx/sites-available/default owner=root group=root
+      become: yes
+    - name: stop nginx
+      become: yes
+      service: name=nginx enabled=yes state=stopped
+
+- name: Server E
+  hosts: tag_type_nginx[4]
+  become: True
+  gather_facts: True
+  tasks:
+    - name: stop nginx
+      become: yes
+      service: name=nginx enabled=yes state=stopped
+    - name: remove log dir
+      file:
+        state: absent
+        path: "/var/log/nginx"

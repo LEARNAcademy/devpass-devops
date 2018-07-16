@@ -1,0 +1,33 @@
+- name: Create instances
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Launch instance
+      ec2:
+        exact_count: 5
+        key_name: devpass 
+        group: open 
+        instance_type: t2.micro 
+        image: ami-ba602bc2
+        wait: true
+        region: us-west-2
+        count_tag:
+          type: nginx
+        instance_tags:
+          type: nginx
+      register: ec2
+
+    - name: Add new instance to host group
+      add_host:
+        hostname: "{{ item.public_ip }}"
+        groupname: tag_type_nginx
+      with_items: "{{ ec2.instances }}"
+
+    - name: give ssh time to come up
+      wait_for: host='{{ item.public_ip }}' port=22 state=started connect_timeout=20
+      with_items: '{{ ec2.instances }}'
+
+    - name: pause another few seconds for other services to start
+      pause: seconds=5
+
+- include: configure.yml

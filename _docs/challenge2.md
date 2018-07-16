@@ -9,12 +9,11 @@ permalink: /docs/challenge2/
 
 [Challenge One]({{site.baseurl}}/docs/challenge1)
 
-
 Never by afraid to go back an review lessons or use the tutorial as a cheat sheet. 
 
 > it is often helpful to create your own cheatsheets for thinsg like setting up a basic Ubuntu instance
 
-### Download this code and copy it up to your site
+### Download this code to your local machine and copy it up to your site
 
 [httpstatuscat](https://github.com/6IX7ine/httpstatuscat)
 
@@ -58,6 +57,8 @@ Open http://IP OF YOU INSTANCE:4000 and see if the site loads
 
 ![See The app]({{site.baseurl}}/img/seeapp.png)
 
+> If your browser just spins for a long time before timing out, then you do not have the AWS Security Group set correctly to allow port 4000. Log in to the AWS console to fix.
+
 ### Add the Proxy Configuration
 
 So that our app keeps running for the moment, we're going to stop the app by typing "CTRL-c". CTRL-c is the common keyboard short cut to terminate a running program. Once that is done, press the up arrow on your keyboard to bring back the last command and add an '&' to the end of it then hit enter again.  Now the node app is running in the background.
@@ -95,6 +96,7 @@ Open http://IP OF YOUR INSTANCE/cats and see if your app shows up.  Does / still
 
 Follow the same procedure to get this Rails application running on port 3000. 
 
+> If your browser just spins for a long time before timing out, then you do not have the AWS Security Group set correctly to allow port 3000. Log in to the AWS console to fix.
 
 Install RVM using these [instructions](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rvm-on-ubuntu-16-04)
 
@@ -111,6 +113,8 @@ rails s -b 0.0.0.0
 
 Before you start
 
+> Log in to the AWS console to fix the security group to allow port 8000.
+
 ```bash
 apt install composer php7.0-mbstring php7.0-dom zip unzip mysql php7.0-mysql
 ```
@@ -118,6 +122,31 @@ apt install composer php7.0-mbstring php7.0-dom zip unzip mysql php7.0-mysql
 Before running the migration - change "127.0.0.1" to "localhost" in the .env file
 
 Otherwise follow the instructions [here](https://github.com/laravel/quickstart-basic)
+
+### Init System
+
+Create init scripts for your 3 services to start them when the system restarts. Here is an example file for the node app
+
+```systemd
+[Unit]
+Description=Node Cat Server
+Requires=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/var/www/html/webapp
+ExecStart=/usr/bin/bash -lc 'PORT=4000 nodejs index.js'
+TimeoutSec=30
+RestartSec=15s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
 
 ## Clean Up
 

@@ -132,7 +132,8 @@ Otherwise follow the instructions [here](https://github.com/laravel/quickstart-b
 
 ### Init System
 
-Create init scripts for your 3 services to start them when the system restarts. Here is an example file for the node app
+Create init scripts for your 3 services to start them when the system restarts. Here is an example file for the node app.
+> Multiple lines in this file need to change for each service ;-)
 
 ```systemd
 [Unit]
@@ -153,7 +154,11 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
+### Verify reboot
 
+There are two ways to reboot the server. Either type `sudo shutdown -r now` in the terminal or go to the AWS console, right click on the ec2 container, select instance state and select restart.
+
+After the system comes back up is everything still running?
 
 ## Clean Up
 

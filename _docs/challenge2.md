@@ -101,7 +101,8 @@ Follow the same procedure to get this Rails application running on port 3000.
 Install RVM using these [instructions](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rvm-on-ubuntu-16-04)
 
 ```bash
-apt install libpq-dev  # need this for the bundle
+sudo apt install libpq-dev  # need this for the bundle
+##### make sure you are not root for these next steps
 rvm install 2.4.1
 git clone https://github.com/RailsApps/learn-rails.git
 cd learn-rails
@@ -119,7 +120,11 @@ Before you start
 apt install composer php7.0-mbstring php7.0-dom zip unzip mysql-client mysql-server php7.0-mysql
 ```
 
-Before running the migration - change "127.0.0.1" to "localhost" in the .env file, change the mysql user to root and the password to blank (assuming you left it blank during install above)
+Before running the migration 
+
+- change "127.0.0.1" to "localhost" in the .env file, 
+- change the mysql user to root and the password to blank (assuming you left it blank during install above)
+- on the command line run "sudo mysqladmin create homestead"
 
 On the last step below you need to change "php artisan serve" to "php artisan serve --host 0.0.0.0"
 

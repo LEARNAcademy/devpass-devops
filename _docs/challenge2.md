@@ -43,7 +43,7 @@ git clone https://github.com/LEARNAcademy/http-status-cats-api.git webapp
 ```bash
 sudo su -
 cd /var/www/html/webapp
-
+npm install
 ```
 
 ### Start The App

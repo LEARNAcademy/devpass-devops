@@ -38,7 +38,7 @@
         - nginx
 
 - name: Server A
-  hosts: tag_type_nginx[0]
+  hosts: tag_type_nginx[0]:tag_type_nginx[1]:tag_type_nginx[2]:tag_type_nginx[3]
   become: True
   gather_facts: True
   tasks:
@@ -50,7 +50,8 @@
       service: name=nginx enabled=yes state=restarted
 
 - name: Server B
-  hosts: tag_type_nginx[1]
+  hosts: tag_type_nginx[4]:tag_type_nginx[5]:tag_type_nginx[6]:tag_type_nginx[7]
+   
   become: True
   gather_facts: True
   tasks:
@@ -62,7 +63,7 @@
       service: name=nginx enabled=yes state=restarted
 
 - name: Server C
-  hosts: tag_type_nginx[2]
+  hosts: tag_type_nginx[8]:tag_type_nginx[9]:tag_type_nginx[10]:tag_type_nginx[11]
   become: True
   gather_facts: True
   tasks:
@@ -74,7 +75,7 @@
       service: name=nginx enabled=yes state=restarted
 
 - name: Server D
-  hosts: tag_type_nginx[3]
+  hosts: tag_type_nginx[12]:tag_type_nginx[13]:tag_type_nginx[14]:tag_type_nginx[15]
   become: True
   gather_facts: True
   tasks:
@@ -86,7 +87,7 @@
       service: name=nginx enabled=yes state=stopped
 
 - name: Server E
-  hosts: tag_type_nginx[4]
+  hosts: tag_type_nginx[16]:tag_type_nginx[17]:tag_type_nginx[18]:tag_type_nginx[19]
   become: True
   gather_facts: True
   tasks:

@@ -4,7 +4,7 @@
   tasks:
     - name: Launch instance
       ec2:
-        exact_count: 5
+        exact_count: 20
         key_name: devpass 
         group: open 
         instance_type: t2.micro 

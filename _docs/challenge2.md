@@ -116,7 +116,7 @@ Before you start
 > Log in to the AWS console to fix the security group to allow port 8000.
 
 ```bash
-apt install composer php7.0-mbstring php7.0-dom zip unzip mysql php7.0-mysql
+apt install composer php7.0-mbstring php7.0-dom zip unzip mysql-client mysql-server php7.0-mysql
 ```
 
 Before running the migration - change "127.0.0.1" to "localhost" in the .env file

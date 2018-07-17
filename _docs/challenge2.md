@@ -132,7 +132,8 @@ Otherwise follow the instructions [here](https://github.com/laravel/quickstart-b
 
 ### Init System
 
-iCreate init scripts for your 3 services to start them when the system restarts. Here is an example file for the node app.  They live in /etc/systemd/system.
+Create init scripts for your 3 services to start them when the system restarts. Here is an example file for the node app.  They live in /etc/systemd/system. Let's call this first one /etc/systemd/system/node_cats.service
+
 > Multiple lines in this file need to change for each service ;-)
 
 ```systemd
@@ -153,6 +154,11 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 ```
+> Use `sudo systemctl daemon-reload` after you add new scripts
+
+> Use `systemctl enable node_cats` to launch
+
+> Use `systemctl status node_cats` to see the status
 
 ### Verify reboot
 

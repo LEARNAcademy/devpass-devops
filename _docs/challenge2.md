@@ -132,7 +132,7 @@ Otherwise follow the instructions [here](https://github.com/laravel/quickstart-b
 
 ### Init System
 
-Create init scripts for your 3 services to start them when the system restarts. Here is an example file for the node app.
+iCreate init scripts for your 3 services to start them when the system restarts. Here is an example file for the node app.  They live in /etc/systemd/system.
 > Multiple lines in this file need to change for each service ;-)
 
 ```systemd

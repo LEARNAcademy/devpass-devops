@@ -119,7 +119,9 @@ Before you start
 apt install composer php7.0-mbstring php7.0-dom zip unzip mysql-client mysql-server php7.0-mysql
 ```
 
-Before running the migration - change "127.0.0.1" to "localhost" in the .env file
+Before running the migration - change "127.0.0.1" to "localhost" in the .env file, change the mysql user to root and the password to blank (assuming you left it blank during install above)
+
+On the last step below you need to change "php artisan serve" to "php artisan serve --host 0.0.0.0"
 
 Otherwise follow the instructions [here](https://github.com/laravel/quickstart-basic)
 

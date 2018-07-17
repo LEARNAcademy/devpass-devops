@@ -156,9 +156,9 @@ WantedBy=multi-user.target
 ```
 > Use `sudo systemctl daemon-reload` after you add new scripts
 
-> Use `systemctl enable node_cats` to launch
+> Use `sudo systemctl enable node_cats` to launch
 
-> Use `systemctl status node_cats` to see the status
+> Use `sudo systemctl status node_cats` to see the status
 
 ### Verify reboot
 

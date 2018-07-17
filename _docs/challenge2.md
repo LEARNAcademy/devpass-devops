@@ -146,7 +146,7 @@ Type=simple
 User=root
 Group=root
 WorkingDirectory=/var/www/html/webapp
-ExecStart=/usr/bin/bash -lc 'PORT=4000 nodejs index.js'
+ExecStart=/bin/bash -lc 'PORT=4000 nodejs index.js'
 TimeoutSec=30
 RestartSec=15s
 Restart=always

@@ -77,8 +77,8 @@ upstream cats {
 }
 
 # This part goes after the } on location / {
-location /cats/ {
-        proxy_pass http://cats/;
+location / {
+        proxy_pass http://cats;
 }
 ```
 

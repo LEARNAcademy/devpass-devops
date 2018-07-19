@@ -156,9 +156,15 @@ WantedBy=multi-user.target
 ```
 > Use `sudo systemctl daemon-reload` after you add new scripts
 
-> Use `sudo systemctl enable node_cats` to launch
+> Use `sudo systemctl start node_cats` to launch
+
+> Use `sudo systemctl enable node_cats` to launch on reboot
 
 > Use `sudo systemctl status node_cats` to see the status
+
+Some hints - for Rails, you need "RAILS_RELATIVE_URL_ROOT=/rails /home/ubuntu/.rvm/wrappers/ruby-2.4.1/rails" instead of just the "rails" command. The relative root is for making the app routes match your nginx config subdirectory
+
+Both it and the Laravel app you should run them as the ubuntu user and group
 
 ### Verify reboot
 

@@ -13,10 +13,10 @@
     #   become: yes
     #   package: update_cache=yes
     
-    # - name: install aptitude
-    #   # on Debian Jessie aptitude is not installed by default, without it apt-get upgrade fails
-    #   become: yes
-    #   package: name=aptitude state=installed
+    - name: install aptitude
+      # on Debian Jessie aptitude is not installed by default, without it apt-get upgrade fails
+      become: yes
+      package: name=aptitude state=installed
     
     # - name: upgrade apt packages
     #   become: yes
@@ -38,7 +38,7 @@
         - nginx
 
 - name: Server A
-  hosts: tag_type_nginx[0]:tag_type_nginx[1]:tag_type_nginx[2]:tag_type_nginx[3]
+  hosts: tag_group_a
   become: True
   gather_facts: True
   tasks:
@@ -50,7 +50,7 @@
       service: name=nginx enabled=yes state=restarted
 
 - name: Server B
-  hosts: tag_type_nginx[4]:tag_type_nginx[5]:tag_type_nginx[6]:tag_type_nginx[7]
+  hosts: tag_group_b
    
   become: True
   gather_facts: True
@@ -63,7 +63,7 @@
       service: name=nginx enabled=yes state=restarted
 
 - name: Server C
-  hosts: tag_type_nginx[8]:tag_type_nginx[9]:tag_type_nginx[10]:tag_type_nginx[11]
+  hosts: tag_group_c
   become: True
   gather_facts: True
   tasks:
@@ -75,7 +75,7 @@
       service: name=nginx enabled=yes state=restarted
 
 - name: Server D
-  hosts: tag_type_nginx[12]:tag_type_nginx[13]:tag_type_nginx[14]:tag_type_nginx[15]
+  hosts: tag_group_d
   become: True
   gather_facts: True
   tasks:
@@ -87,7 +87,7 @@
       service: name=nginx enabled=yes state=stopped
 
 - name: Server E
-  hosts: tag_type_nginx[16]:tag_type_nginx[17]:tag_type_nginx[18]:tag_type_nginx[19]
+  hosts: tag_group_e
   become: True
   gather_facts: True
   tasks:
@@ -98,3 +98,4 @@
       file:
         state: absent
         path: "/var/log/nginx"
+

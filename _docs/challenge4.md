@@ -15,6 +15,16 @@ Send the backups to S3.
 
 You also need to create a cron job that runs the backup daily.
 
+You may have trouble connecting to mysql if you did not set a root password. To fix this do the following:
+
+```bash
+sudo mysql -uroot
+use mysql;
+update user set authentication_string=password(''), plugin='mysql_native_password' where user='root';
+flush privileges;
+exit;
+```
+
 > Hint: You need to set the right RVM environment to use in cron.  Try `/home/ubuntu/.rvm/wrappers/ruby-2.3.7/backup`
 
 Questions

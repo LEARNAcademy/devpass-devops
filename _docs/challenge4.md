@@ -43,3 +43,6 @@ Questions
 1) Can you see the logs for cron? Is your backup running?
 
 2) When you hit one of the apps via http, do you see both Nginx and App logs for the request? Can you create a saved search that shows only the Nginx and App logs for the Node app?
+
+## Either tear down manually or use the script located in `ansible-playbook -i ec2.py cleanup.yml` when you are dones
+`

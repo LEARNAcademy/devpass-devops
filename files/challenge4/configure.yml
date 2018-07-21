@@ -9,9 +9,9 @@
   become: True
   gather_facts: True
   tasks:
-    # - name: update apt cache
-    #   become: yes
-    #   package: update_cache=yes
+    - name: update apt cache
+      become: yes
+      package: update_cache=yes
     
     - name: install aptitude
       # on Debian Jessie aptitude is not installed by default, without it apt-get upgrade fails
@@ -27,15 +27,25 @@
       package: name={{ item }} state=installed
       with_items:
         - build-essential
-        - git
+        - composer
         - curl
-        - openssl
+        - git
+        - libpq-dev
         - libreadline6
         - libreadline6-dev
+        - libssl-dev
+        - mysql-client
+        - mysql-server
+        - nginx
+        - openssl
+        - php7.0-dom
+        - php7.0-mbstring
+        - php7.0-mysql
+        - python-mysqldb
+        - unzip
+        - zip
         - zlib1g
         - zlib1g-dev
-        - libssl-dev
-        - nginx
 
 - name: Install Rails App
   hosts: tag_group_a
@@ -47,6 +57,9 @@
         rvm1_user: 'ubuntu'
       }
   tasks:
+    - name: chmod /var/www
+      file: dest=/var/www owner=root group=adm mode=u=rwX,g=rwX recurse=yes
+      become: yes
     - name: clone rails app
       git:
         repo: 'https://github.com/LEARNAcademy/learn-rails.git'
@@ -60,7 +73,43 @@
       become: yes
     - name: start rails
       systemd: state=started name=rails daemon_reload=yes
+      become: yes
 
+- name: Install PHP App
+  hosts: tag_group_a
+  gather_facts: true
+  tasks:
+    - name: clone laravel app
+      git:
+        repo: 'https://github.com/laravel/quickstart-basic.git'
+        dest: '/var/www/html/quickstart'
+        version: master
+        force: yes
+      creates: '/var/www/html/quickstart'
+    - copy: src=./files/laravel-env dest=/var/www/html/quickstart/.env owner=ubuntu group=adm
+      become: yes
+    - name: Create a new database with name 'homestead'
+      mysql_db:
+        name: homestead
+        state: present
+      become: yes
+    - name: Fix permissions
+      shell: "mysql -uroot -e \"use mysql; update user set authentication_string=password(''), plugin='mysql_native_password' where user='root'; flush privileges;\""
+      become: yes
+    - name: composer install
+      shell: 'composer install'
+      args:
+        chdir: '/var/www/html/quickstart'
+    - name: migrate database
+      shell: 'php artisan migrate'
+      args:
+        chdir: '/var/www/html/quickstart'
+    - copy: src=./files/laravel.service dest=/etc/systemd/system/laravel.service owner=root group=root
+      become: yes
+    - name: start laravel
+      systemd: state=started name=laravel daemon_reload=yes
+      become: yes
+   
 - name: Proxy config 
   hosts: tag_group_a
   gather_facts: True

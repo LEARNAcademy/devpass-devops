@@ -12,7 +12,7 @@
         wait: true
         region: us-west-2
         count_tag:
-          type: nginx
+          group: a
         instance_tags:
           type: nginx
           group: a
@@ -21,7 +21,9 @@
     - name: Add new instance to host group
       add_host:
         hostname: "{{ item.public_ip }}"
-        groupname: tag_type_nginx,tag_group_a
+        groups:
+          - tag_type_nginx
+          - tag_group_a
       with_items: "{{ ec2.instances }}"
 
     - name: give ssh time to come up
@@ -45,7 +47,7 @@
         wait: true
         region: us-west-2
         count_tag:
-          type: nginx
+          group: b
         instance_tags:
           type: nginx
           group: b
@@ -54,7 +56,9 @@
     - name: Add new instance to host group
       add_host:
         hostname: "{{ item.public_ip }}"
-        groupname: tag_type_nginx,tag_group_b
+        groups:
+          - tag_type_nginx
+          - tag_group_b
       with_items: "{{ ec2.instances }}"
 
     - name: give ssh time to come up
@@ -78,16 +82,18 @@
         wait: true
         region: us-west-2
         count_tag:
-          type: nginx
+          group: c 
         instance_tags:
           type: nginx
           group: c
-        register: ec2
+      register: ec2
 
     - name: Add new instance to host group
       add_host:
         hostname: "{{ item.public_ip }}"
-        groupname: tag_type_nginx,tag_group_c
+        groups:
+          - tag_type_nginx
+          - tag_group_c
       with_items: "{{ ec2.instances }}"
 
     - name: give ssh time to come up
@@ -111,7 +117,7 @@
         wait: true
         region: us-west-2
         count_tag:
-          type: nginx
+          group: d
         instance_tags:
           type: nginx
           group: d
@@ -120,7 +126,9 @@
     - name: Add new instance to host group
       add_host:
         hostname: "{{ item.public_ip }}"
-        groupname: tag_type_nginx,tag_group_d
+        groups:
+          - tag_type_nginx
+          - tag_group_d
       with_items: "{{ ec2.instances }}"
 
     - name: give ssh time to come up
@@ -144,16 +152,18 @@
         wait: true
         region: us-west-2
         count_tag:
-          type: nginx
+          group: e
         instance_tags:
           type: nginx
           group: e
-        register: ec2
+      register: ec2
 
     - name: Add new instance to host group
       add_host:
         hostname: "{{ item.public_ip }}"
-        groupname: tag_type_nginx,tag_group_e
+        groups:
+          - tag_type_nginx
+          - tag_group_e
       with_items: "{{ ec2.instances }}"
 
     - name: give ssh time to come up

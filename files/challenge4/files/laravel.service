@@ -1,13 +1,13 @@
 [Unit]
-Description=Node Cat Server
+Description=Laravel ToDo App
 Requires=network.target
 
 [Service]
 Type=simple
-User=root
-Group=root
-WorkingDirectory=/var/www/html/webapp
-ExecStart=/bin/bash -lc 'PORT=4000 nodejs index.js'
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/var/www/html/quickstart-basic
+ExecStart=/bin/bash -lc 'php artisan serve –host 0.0.0.0'
 TimeoutSec=30
 RestartSec=15s
 Restart=always

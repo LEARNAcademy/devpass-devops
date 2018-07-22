@@ -64,7 +64,7 @@
     - name: npm
       shell: 'npm install'
       args:
-        chdir: '/var/www/html/node_cats'
+        chdir: '/var/www/html/webapp'
     - copy: src=./files/cats.service dest=/etc/systemd/system/node_cats.service owner=root group=root
       become: yes
     - name: start node

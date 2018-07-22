@@ -37,6 +37,8 @@
         - mysql-client
         - mysql-server
         - nginx
+        - nodejs
+        - npm
         - openssl
         - php7.0-dom
         - php7.0-mbstring
@@ -46,6 +48,29 @@
         - zip
         - zlib1g
         - zlib1g-dev
+
+- name: Install Node App
+  hosts: tag_group_a
+  gather_facts: True
+  tasks:
+    - name: chmod /var/www
+      file: dest=/var/www owner=root group=adm mode=u=rwX,g=rwX recurse=yes
+      become: yes
+    - name: clone node app
+      git:
+        repo: 'https://github.com/LEARNAcademy/http-status-cats-api.git'
+        dest: '/var/www/html/webapp'
+        version: master
+    - name: npm
+      shell: 'npm install'
+      args:
+        chdir: '/var/www/html/node_cats'
+    - copy: src=./files/cats.service dest=/etc/systemd/system/node_cats.service owner=root group=root
+      become: yes
+    - name: start node
+      systemd: state=started name=node_cats daemon_reload=yes
+      become: yes
+
 
 - name: Install Rails App
   hosts: tag_group_a

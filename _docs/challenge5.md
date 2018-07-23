@@ -3,13 +3,13 @@ title: Challenge Five
 permalink: /docs/challenge5/
 ---
 
-## Use the Ansible scripts found [here](https://github.com/LEARNAcademy/devpass-devops/tree/master/files/challenge4) to recreate your server with all 3 apps running. 
+## Use the Ansible scripts found [in challenge 4 here](https://github.com/LEARNAcademy/devpass-devops/tree/master/files/challenge4) to recreate your server with all 3 apps running. 
 
 This challenge builds off the work from the challenges so far. 
 
 1. Install Ansible via these instructions for [your machine](https://docs.Ansible.com/Ansible/latest/installation_guide/intro_installation.html)
 1. Clone the devpass repo on your local machine via git
-1. Change directory in to the repo, change in to files/challenge4
+1. Change directory in to the repo, change in to [files/challenge4](https://github.com/LEARNAcademy/devpass-devops/tree/master/files/challenge4)
 1. `cp ec2.ini.sample ec2.ini` 
 1. Edit ec2.ini to include your AWS key and secret at the very bottom of the file
 1. Run `ansible-playbook -i ec2.py launch.yml

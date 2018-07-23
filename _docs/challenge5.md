@@ -32,3 +32,4 @@ Questions
 
 3) How would we spin up more than one copy of this?
 
+## Either tear down manually or use the script located in `ansible-playbook -i ec2.py cleanup.yml` when you are done

@@ -7,7 +7,7 @@ permalink: /docs/challenge5/
 
 This challenge builds off the work from the challenges so far. 
 
-1. Install Ansible via these instructions for [your machine](https://docs.Ansible.com/Ansible/latest/installation_guide/intro_installation.html)
+1. Install Ansible via these instructions for [your machine](https://docs.Ansible.com/ansible/latest/installation_guide/intro_installation.html)
 1. Clone the devpass repo on your local machine via git
 1. Change directory in to the repo, change in to [files/challenge4](https://github.com/LEARNAcademy/devpass-devops/tree/master/files/challenge4)
 1. `cp ec2.ini.sample ec2.ini` 

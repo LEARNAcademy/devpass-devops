@@ -15,6 +15,7 @@ This challenge builds off the work from the challenges so far.
 1. Create a directory called `.aws` in your home folder if it does not exist `mkdir ~/.aws`
 1. Copy the sample credential file to `~/.aws/credentials`
 1. Edit the `~/.aws/credentials` file and add your AWS keypair there as well
+1. Add your devpass ssh key to the list of keys ssh will try automatically via `ssh-add ~/.ssh/devpass_rsa`
 1. Run `ansible-playbook -i ec2.py launch.yml
 
 Notice how the process launches an EC2 image, and then configures that image. If you have to reconfigure after making changes (like to complete the next two exercises) you can safely run the Ansible command again, or cut out the launch.yml and only run configure.yml (launch __includes_ configure) by running `ansible-playbook -i ec2.py configure.yml`

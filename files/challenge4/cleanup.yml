@@ -14,6 +14,4 @@
         region: us-west-2
         count_tag:
           type: nginx
-        instance_tags:
-          type: nginx
  

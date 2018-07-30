@@ -2,12 +2,15 @@
   hosts: localhost
   gather_facts: False
   tasks:
+    ## This task launches the `exact_count` number of instances.
+    #  How do we count? we count instances that have the `count_tag` tags on them, in this case the group tag "a"
+    #  Note that we also register the launched instances in to a variable called ec2 which we use in the next step
     - name: Launch instance
       ec2:
-        exact_count: 1 
-        key_name: devpass 
-        group: open 
-        instance_type: t2.micro 
+        exact_count: 1
+        key_name: devpass
+        group: open
+        instance_type: t2.micro
         image: ami-ba602bc2
         wait: true
         region: us-west-2
@@ -16,8 +19,12 @@
         instance_tags:
           type: nginx
           group: a
+        state: running
       register: ec2
 
+    # This registers the new hosts dynamically in ansible. In non-cloud environments you would read the hosts file in at launch
+    # Here, the servers do not exist at launch so we have to wait till they do exists and add them automatically after they
+    # come up. We use the ansbile groups (not ec2 groups) of tag_type_nginx and tag_group_a in later tasks.
     - name: Add new instance to host group
       add_host:
         hostname: "{{ item.public_ip }}"
@@ -33,4 +40,7 @@
     - name: pause another few seconds for other services to start
       pause: seconds=5
 
+# We break this process up in to two steps so that you dont have to run the one that talks to ec2 every time.
+# Once the instances are up, we can just run configure.yml on the command line (instead of launch.yml). But, we don't
+# want to copy and paste everything in configure to launch, so we just include it here.
 - include: configure.yml

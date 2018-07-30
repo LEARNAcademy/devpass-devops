@@ -1,27 +1,32 @@
-- hosts: tag_type_nginx 
-  gather_facts: no
+# Almost all linux's install python by default. With Ubuntu 16.04 they didn't
+# install python because of the flux between python 2 and 3. So we install it now
+- hosts: tag_type_nginx
+  gather_facts: False
   pre_tasks:
     - name: 'install python2'
       raw: sudo apt-get -y install python-simplejson
 
+# Here we are going to go in to each server and install the list of packages
 - name: Configure instance(s)
   hosts: tag_type_nginx
   become: True
   gather_facts: True
   tasks:
+    # First we update apt to make sure we are installing the right versions
     - name: update apt cache
       become: yes
       package: update_cache=yes
-    
+
     - name: install aptitude
       # on Debian Jessie aptitude is not installed by default, without it apt-get upgrade fails
       become: yes
       package: name=aptitude state=installed
-    
+
+    # right now we are not upgrading the servers base pacakges. but we can if we want to
     # - name: upgrade apt packages
     #   become: yes
     #   package: upgrade=full
-    
+
     - name: install dev tools and libraries
       become: yes
       package: name={{ item }} state=installed
@@ -49,24 +54,31 @@
         - zlib1g
         - zlib1g-dev
 
+# we are going to do the same steps as we did in challenge 2
 - name: Install Node App
   hosts: tag_group_a
   gather_facts: True
   tasks:
+    # make sure the directory is write able
     - name: chmod /var/www
       file: dest=/var/www owner=root group=adm mode=u=rwX,g=rwX recurse=yes
       become: yes
+    # check the repo out of git on to the server
     - name: clone node app
       git:
         repo: 'https://github.com/LEARNAcademy/http-status-cats-api.git'
         dest: '/var/www/html/webapp'
         version: master
+    # in a shell, run npm install. This is just like logging in and typing it
     - name: npm
       shell: 'npm install'
       args:
-        chdir: '/var/www/html/webapp'
+        chdir: '/var/www/html/webapp'  # notice the explicit directory. You could cd up in "shell", but it wouldn't give you as good an error message
+    # Copy a file from the locals 'files' directory up to the remote server. just like with scp.
+    # Here we put it in place and set it to the right permissions in one move.
     - copy: src=./files/cats.service dest=/etc/systemd/system/node_cats.service owner=root group=root
       become: yes
+    # We never start the process manually in this version, but jump straight to creating a service for it.
     - name: start node
       systemd: state=started name=node_cats daemon_reload=yes
       become: yes
@@ -75,6 +87,8 @@
 - name: Install Rails App
   hosts: tag_group_a
   gather_facts: True
+  # This is our first role.  Yes, we could put all the steps here our selves, but the nice people at RVM
+  # maintain this version for us.
   roles:
     - { role: rvm_io.ruby,
         tags: ruby,
@@ -82,6 +96,7 @@
         rvm1_user: 'ubuntu'
       }
   tasks:
+    # Steps here are very similar to the once above. clone the repo, setup dependencies, install the service and run the service
     - name: chmod /var/www
       file: dest=/var/www owner=root group=adm mode=u=rwX,g=rwX recurse=yes
       become: yes
@@ -96,6 +111,7 @@
         chdir: '/var/www/html/learn-rails'
     - copy: src=./files/rails.service dest=/etc/systemd/system/rails.service owner=root group=root
       become: yes
+    # Notice here the argument "daemon_reload=yes" this is makes the daemon-reload and start all one step, saving us time
     - name: start rails
       systemd: state=started name=rails daemon_reload=yes
       become: yes
@@ -104,6 +120,7 @@
   hosts: tag_group_a
   gather_facts: true
   tasks:
+    # again, we clone, install dependencies and start the app. only different steps here are all db related
     - name: clone laravel app
       git:
         repo: 'https://github.com/laravel/quickstart-basic.git'
@@ -113,11 +130,14 @@
       creates: '/var/www/html/quickstart'
     - copy: src=./files/laravel-env dest=/var/www/html/quickstart/.env owner=ubuntu group=adm
       become: yes
+    # ansible has build in know-how when it comes to setting up the database.
     - name: Create a new database with name 'homestead'
       mysql_db:
         name: homestead
         state: present
       become: yes
+    # but it doesn't just run sql code easily because of the permissions issue. if this was already run we could run it using an ansible module. but since
+    # it has not run yet, we cheat and go out to the shell
     - name: Fix permissions
       shell: "mysql -uroot -e \"use mysql; update user set authentication_string=password(''), plugin='mysql_native_password' where user='root'; flush privileges;\""
       become: yes
@@ -134,11 +154,11 @@
     - name: start laravel
       systemd: state=started name=laravel daemon_reload=yes
       become: yes
-   
-- name: Proxy config 
+## Lastly we copy up the proxy file and restart nginx.
+- name: Proxy config
   hosts: tag_group_a
   gather_facts: True
-  tasks: 
+  tasks:
     - copy: src=./files/apps.conf dest=/etc/nginx/sites-available/default owner=root group=root
       become: yes
     - name: restart nginx

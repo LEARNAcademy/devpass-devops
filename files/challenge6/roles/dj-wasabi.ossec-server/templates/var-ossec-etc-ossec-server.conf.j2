@@ -1,0 +1,183 @@
+<!-- OSSEC example config -->
+
+<ossec_config>
+  <global>
+    {% if ossec_server_config.email_notification is not defined or ossec_server_config.email_notification | lower == "yes" %}
+    <email_notification>yes</email_notification>
+{% for to in ossec_server_config.mail_to %}
+    <email_to>{{ to }}</email_to>
+{% endfor %}
+    <smtp_server>{{ ossec_server_config.mail_smtp_server }}</smtp_server>
+    <email_from>{{ ossec_server_config.mail_from }}</email_from>
+    {% else %}
+    <email_notification>no</email_notification>
+    {% endif %}
+  </global>
+
+{% if ossec_server_config.extra_emails is defined %}
+{% for mail in ossec_server_config.extra_emails %}
+  <email_alerts>
+    <email_to>{{ mail.mail_to }}</email_to>
+    {% if mail.format is defined %}
+    <format>{{ mail.format }}</format>
+    {% endif %}
+    {% if mail.level is defined %}
+    <level>{{ mail.level }}</level>
+    {% endif %}
+    {% if mail.event_location is defined %}
+    <event_location>{{ mail.event_location }}</event_location>
+    {% endif %}
+    {% if mail.group is defined %}
+    <group>{{ mail.group }}</group>
+    {% endif %}
+    {% if mail.do_not_delay is defined and mail.do_not_delay == true %}
+    <do_not_delay />
+    {% endif %}
+    {% if mail.do_not_group is defined and mail.do_not_group == true %}
+    <do_not_group />
+    {% endif %}
+    {% if mail.rule_id is defined %}
+    <rule_id>{{ mail.rule_id }}</rule_id>
+    {% endif %}
+  </email_alerts>
+{% endfor %}    
+{% endif %}
+
+  <rules>
+    <include>rules_config.xml</include>
+    <include>pam_rules.xml</include>
+    <include>sshd_rules.xml</include>
+    <include>telnetd_rules.xml</include>
+    <include>syslog_rules.xml</include>
+    <include>arpwatch_rules.xml</include>
+    <include>symantec-av_rules.xml</include>
+    <include>symantec-ws_rules.xml</include>
+    <include>pix_rules.xml</include>
+    <include>named_rules.xml</include>
+    <include>smbd_rules.xml</include>
+    <include>vsftpd_rules.xml</include>
+    <include>pure-ftpd_rules.xml</include>
+    <include>proftpd_rules.xml</include>
+    <include>ms_ftpd_rules.xml</include>
+    <include>ftpd_rules.xml</include>
+    <include>hordeimp_rules.xml</include>
+    <include>roundcube_rules.xml</include>
+    <include>wordpress_rules.xml</include>
+    <include>cimserver_rules.xml</include>
+    <include>vpopmail_rules.xml</include>
+    <include>vmpop3d_rules.xml</include>
+    <include>courier_rules.xml</include>
+    <include>web_rules.xml</include>
+    <include>web_appsec_rules.xml</include>
+    <include>apache_rules.xml</include>
+    <include>nginx_rules.xml</include>
+    <include>php_rules.xml</include>
+    <include>mysql_rules.xml</include>
+    <include>postgresql_rules.xml</include>
+    <include>ids_rules.xml</include>
+    <include>squid_rules.xml</include>
+    <include>firewall_rules.xml</include>
+    <include>cisco-ios_rules.xml</include>
+    <include>netscreenfw_rules.xml</include>
+    <include>sonicwall_rules.xml</include>
+    <include>postfix_rules.xml</include>
+    <include>sendmail_rules.xml</include>
+    <include>imapd_rules.xml</include>
+    <include>mailscanner_rules.xml</include>
+    <include>dovecot_rules.xml</include>
+    <include>ms-exchange_rules.xml</include>
+    <include>racoon_rules.xml</include>
+    <include>vpn_concentrator_rules.xml</include>
+    <include>spamd_rules.xml</include>
+    <include>msauth_rules.xml</include>
+    <include>mcafee_av_rules.xml</include>
+    <include>trend-osce_rules.xml</include>
+    <include>ms-se_rules.xml</include>
+    <!-- <include>policy_rules.xml</include> -->
+    <include>zeus_rules.xml</include>
+    <include>solaris_bsm_rules.xml</include>
+    <include>vmware_rules.xml</include>
+    <include>ms_dhcp_rules.xml</include>
+    <include>asterisk_rules.xml</include>
+    <include>ossec_rules.xml</include>
+    <include>attack_rules.xml</include>
+    <include>local_rules.xml</include>
+  </rules>
+
+
+  <syscheck>
+    <!-- Frequency that syscheck is executed -- default every 20 hours -->
+    <frequency>{{ ossec_server_config.frequency_check }}</frequency>
+
+    <!-- Directories to check  (perform all possible verifications) -->
+{% for directory in ossec_server_config.directories %}
+   <directories check_all="{{ directory.check_all }}">{{ directory.dirs }}</directories>
+{% endfor %}
+
+    <!-- Files/directories to ignore -->
+    {% for ignore_file in ossec_server_config.ignore_files %}
+    <ignore>{{ ignore_file }}</ignore>
+    {% endfor %}    
+  </syscheck>
+
+  <rootcheck>
+    <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
+    <rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+    <system_audit>/var/ossec/etc/shared/system_audit_rcl.txt</system_audit>
+    <system_audit>/var/ossec/etc/shared/{{ cis_distribution_filename }}</system_audit>
+  </rootcheck>
+
+  <global>
+{% for white_list in ossec_server_config.globals %}
+    <white_list>{{ white_list }}</white_list>
+{% endfor %}
+  </global>
+
+  <remote>
+    <connection>{{ ossec_server_config.connection }}</connection>
+  </remote>
+
+  <alerts>
+    <log_alert_level>{{ ossec_server_config.log_level }}</log_alert_level>
+    <email_alert_level>{{ ossec_server_config.email_level }}</email_alert_level>
+  </alerts>
+
+{% for command in ossec_server_config.commands %}
+  <command>
+    <name>{{ command.name }}</name>
+    <executable>{{ command.executable }}</executable>
+    <expect>{{ command.expect }}</expect>
+    <timeout_allowed>{{ command.timeout_allowed }}</timeout_allowed>
+  </command>
+{% endfor %}
+
+  <!-- Active Response Config -->
+{% for response in ossec_server_config.active_responses %}
+  <active-response>
+    <command>{{ response.command }}</command>
+    <location>{{ response.location }}</location>
+    <level>{{ response.level }}</level>
+    <timeout>{{ response.timeout }}</timeout>
+  </active-response>
+{% endfor %}
+
+
+  <!-- Files to monitor (localfiles) -->
+{% for localfile in ossec_server_config.localfiles %}
+  <localfile>
+     <log_format>{{ localfile.format }}</log_format>
+     <location>{{ localfile.location }}</location>
+  </localfile>
+{% endfor %}
+
+{% if ossec_server_config.syslog_outputs is defined %}
+{% for syslog_output in ossec_server_config.syslog_outputs %}
+  <syslog_output>
+    <server>{{ syslog_output.server }}</server>
+    <port>{{ syslog_output.port }}</port>
+    <format>{{ syslog_output.format }}</format>
+  </syslog_output>
+{% endfor %}
+{% endif %}
+
+</ossec_config>

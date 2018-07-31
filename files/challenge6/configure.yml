@@ -213,3 +213,11 @@
         name: remote_syslog
         state: started
       become: true
+
+- name: Security and Monitoring
+  hosts: tag_group_a
+  gather_facts: True
+  roles:
+    - { role: dj-wasabi.ossec-server, become: yes }
+    - { role: notch8.site24x7, become: yes }
+    - { role: tommarshall.lynis, tags: [lynis], become: yes }

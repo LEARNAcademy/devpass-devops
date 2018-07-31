@@ -1,0 +1,16 @@
+[Unit]
+Description=Laravel ToDo App
+Requires=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/var/www/html/quickstart
+ExecStart=/bin/bash -lc 'php artisan serve --host 0.0.0.0'
+TimeoutSec=30
+RestartSec=15s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

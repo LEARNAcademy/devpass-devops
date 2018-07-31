@@ -21,6 +21,6 @@ You may want to use the Ansible roles found [here](https://galaxy.ansible.com/dj
 
 When you change a core file (like the nginx config) is an alert triggered? By which tool?
 
-How close to green can you get your Linus setup? (100% is very rare in practice here).
+How close to green can you get your Lynus setup? (100% is very rare in practice here).
 
 

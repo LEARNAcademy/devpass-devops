@@ -1,0 +1,16 @@
+[Unit]
+Description=Learn Rails Server
+Requires=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/var/www/html/learn-rails
+ExecStart=/bin/bash -lc 'RAILS_RELATIVE_URL_ROOT=/rails /home/ubuntu/.rvm/wrappers/ruby-2.4.1/rails s -b 0.0.0.0'
+TimeoutSec=30
+RestartSec=15s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

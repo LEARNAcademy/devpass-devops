@@ -1,0 +1,17 @@
+---
+- name: Clean Up 
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Terminating Instances 
+      ec2:
+        exact_count: 0
+        key_name: devpass 
+        group: open 
+        instance_type: t2.micro 
+        image: ami-ba602bc2
+        wait: true
+        region: us-west-2
+        count_tag:
+          type: nginx
+ 
